@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product getProductById(int id) {
+    public Product getProductById(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getProductById'");
     }
@@ -26,13 +26,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void updateProduct(int id, Product updatedProduct) {
+    public void updateProduct(Long id, Product updatedProduct) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateProduct'");
     }
 
     @Override
-    public void deleteProduct(int id) {
+    public void deleteProduct(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteProduct'");
     }
