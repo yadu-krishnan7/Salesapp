@@ -2,9 +2,12 @@ package com.sparksupport.salesapp.service.implementation;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.sparksupport.salesapp.domain.Product;
 import com.sparksupport.salesapp.service.ProductService;
 
+@Service
 public class ProductServiceImpl implements ProductService{
 
     @Override
@@ -15,8 +18,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product getProductById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProductById'");
+
+        Product product = new Product();
+        product.setDescription("super");
+        return product;
     }
 
     @Override

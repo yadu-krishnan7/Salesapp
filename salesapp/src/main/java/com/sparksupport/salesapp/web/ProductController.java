@@ -2,6 +2,7 @@ package com.sparksupport.salesapp.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sparksupport.salesapp.domain.Product;
 import com.sparksupport.salesapp.service.ProductService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -31,7 +35,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_USER')") 
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
+        log.info("Entered getProductById with : {}",id);
         Product product = productService.getProductById(id);
         if (product != null) {
             return ResponseEntity.ok(product);
