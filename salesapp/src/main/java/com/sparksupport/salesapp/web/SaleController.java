@@ -53,8 +53,8 @@ public class SaleController {
     public ResponseEntity<Sale> updateSale(@PathVariable Long id, @RequestBody Sale updatedSale) {
         Sale existingSale = saleService.getSaleById(id);
         if (existingSale != null) {
-             saleService.updateSale(id, updatedSale);
-            return new ResponseEntity<>(HttpStatus.OK);
+            Sale sale = saleService.updateSale(id, updatedSale);
+            return new ResponseEntity<>(sale,HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

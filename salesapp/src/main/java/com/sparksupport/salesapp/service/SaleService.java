@@ -16,5 +16,7 @@ public interface SaleService {
     public Sale updateSale(Long id, Sale updatedSale) ;
 
     public void deleteSale(Long id) ;
+
+    public List<Sale> getProductById(Long productId);
     
 } 

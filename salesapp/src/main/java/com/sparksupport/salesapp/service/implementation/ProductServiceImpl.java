@@ -2,23 +2,31 @@ package com.sparksupport.salesapp.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.sparksupport.salesapp.domain.Product;
+import com.sparksupport.salesapp.domain.Sale;
 import com.sparksupport.salesapp.repository.ProductRepository;
 import com.sparksupport.salesapp.service.ProductService;
+import com.sparksupport.salesapp.service.SaleService;
+
+import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ProductServiceImpl implements ProductService{
 
 
     private final ProductRepository productRepository;
+    private final SaleService saleService;
 
-    public ProductServiceImpl(ProductRepository productRepository){
+    public ProductServiceImpl(ProductRepository productRepository,SaleService saleService){
         this.productRepository = productRepository;
+        this.saleService = saleService;
     }
     @Override
     public List<Product> getAllProducts() {
@@ -33,11 +41,16 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Long id) throws Exception{
 
-        Product product = new Product();
-        product.setDescription("super");
-        return product;
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if(productOptional.isPresent()){
+        return productOptional.get();
+        }else{
+            
+             throw new Exception("Product not found");
+        }
     }
 
     @Override
@@ -49,27 +62,71 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProduct(Long id, Product updatedProduct) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateProduct'");
+    public Product updateProduct(Long id, Product updatedProduct) throws Exception{
+       
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if(productOptional.isPresent()){
+
+            Product existingProduct = productOptional.get();
+
+              existingProduct.setDescription(updatedProduct.getDescription() != null ? updatedProduct.getDescription() : existingProduct.getDescription());
+              existingProduct.setName(updatedProduct.getName() != null ? updatedProduct.getName() : existingProduct.getName());
+              existingProduct.setPrice(updatedProduct.getPrice() != 0.0 ? updatedProduct.getPrice() : existingProduct.getPrice());
+              existingProduct.setQuantity(updatedProduct.getQuantity() != null ? updatedProduct.getQuantity() : existingProduct.getQuantity());
+
+              updatedProduct = productRepository.save(existingProduct);
+
+              return updatedProduct;
+        }else{
+            throw new Exception("Product Not found ");
+        }
     }
 
     @Override
-    public void deleteProduct(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteProduct'");
+    public void deleteProduct(Long id) throws Exception {
+
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if(productOptional.isPresent()){
+        productRepository.deleteById(id);
+        log.info("Product deleted : {}",id);
+
+        }else{
+            throw new Exception("Product not found");
+        }
     }
 
     @Override
-    public double getRevenueByProduct(Long productId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRevenueByProduct'");
+    public double getRevenueByProduct(Long productId) throws Exception{
+        log.info("Enter product service getRevenueByProduct with product id : {}",productId);
+         List<Sale> sales = saleService.getProductById(productId);
+
+         if(sales.isEmpty()){
+           
+            throw new Exception("Sales not found with this product id :"+productId);
+ 
+         }else{
+            log.info("Got sales list : {}", sales);
+            double totalRevenue = sales.stream()
+            .mapToDouble(sale -> sale.getQuantity() * sale.getProduct().getPrice())
+            .sum();
+
+            return totalRevenue;
+         }
     }
 
     @Override
     public double getTotalRevenue() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTotalRevenue'");
+       
+        List<Sale> sales = saleService.getAllSales();
+
+        double totalRevenue = sales.stream()
+                              .mapToDouble(sale -> sale.getQuantity() * sale.getProduct().getPrice())
+                              .sum();
+
+            return totalRevenue;
+                                                
     }
     
 }

@@ -8,13 +8,13 @@ public interface ProductService {
 
     public List<Product> getAllProducts() ;
 
-    public Product getProductById(Long id) ;
+    public Product getProductById(Long id) throws Exception;
 
     public Product addProduct(Product product) ;
 
-    public Product updateProduct(Long id, Product updatedProduct) ;
+    public Product updateProduct(Long id, Product updatedProduct) throws Exception;
 
-    public void deleteProduct(Long id) ;
-    public double getRevenueByProduct(Long productId);
+    public void deleteProduct(Long id) throws Exception ;
+    public double getRevenueByProduct(Long productId) throws Exception;
     public double getTotalRevenue() ;
 }

@@ -31,27 +31,34 @@ public class SalesappApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		Product product1 = new Product(null,"Shoe","Best Shoes",500.0,10l);
-        Product product2 = new Product(null,"Shocks","Best Shocks",50.0,1000l);
-        Product product3 = new Product(null,"chappal","Best chappal",150.0,600l);
-        Product product4 = new Product(null,"Bags","Best bags",900.0,1000l);
-        Product product5 = new Product(null,"Books","Best books",15.0,10000l);
-        Product product6 = new Product(null,"Pen","Best pens",10.0,10000l);
-        Product product7 = new Product(null,"EarPhones","Best headsets",5000.0,1000l);
-        Product product8 = new Product(null,"Mobile covers","Best covers",500.0,1000l);
-        Product product9 = new Product(null,"Bottles","Best bottles",90.0,1000l);
-        Product product10 = new Product(null,"Pencil","Best pencil",5.0,1000l);
+		Product product1 = new Product(null,"Shoe","Best Shoes",500.0,100000l);
+        Product product2 = new Product(null,"Shocks","Best Shocks",50.0,100000l);
+        Product product3 = new Product(null,"chappal","Best chappal",150.0,60000l);
         
-		Sale sale1 = new Sale(null,productService.addProduct(product1), 5l, Date.from(Instant.now()));
-		Sale sale2 = new Sale(null,productService.addProduct(product2), 65l, Date.from(Instant.now()));
-		Sale sale3 = new Sale(null,productService.addProduct(product3), 15l, Date.from(Instant.now()));
-		Sale sale4 = new Sale(null,productService.addProduct(product4), 55l, Date.from(Instant.now()));
-		Sale sale5 = new Sale(null,productService.addProduct(product5), 75l, Date.from(Instant.now()));
-		Sale sale6 = new Sale(null,productService.addProduct(product6), 65l, Date.from(Instant.now()));
-		Sale sale7 = new Sale(null,productService.addProduct(product7), 51l, Date.from(Instant.now()));
-		Sale sale8 = new Sale(null,productService.addProduct(product8), 15l, Date.from(Instant.now()));
-		Sale sale9 = new Sale(null,productService.addProduct(product9), 100l, Date.from(Instant.now()));
-		Sale sale10 = new Sale(null,productService.addProduct(product10), 10l, Date.from(Instant.now()));
+		Product productResponse = productService.addProduct(product1);
+		Sale sale1 = new Sale(null,productResponse, 5l, Date.from(Instant.now()));
+		Sale sale2 = new Sale(null,productResponse, 65l, Date.from(Instant.now()));
+		Sale sale3 = new Sale(null,productResponse, 15l, Date.from(Instant.now()));
+		Sale sale4 = new Sale(null,productResponse, 55l, Date.from(Instant.now()));
+		Sale sale5 = new Sale(null,productResponse, 75l, Date.from(Instant.now()));
+		Product productResponse2 = productService.addProduct(product2);
+		Sale sale6 = new Sale(null,productResponse2, 65l, Date.from(Instant.now()));
+		Sale sale7 = new Sale(null,productResponse2, 51l, Date.from(Instant.now()));
+		Sale sale8 = new Sale(null,productResponse2, 15l, Date.from(Instant.now()));
+		Sale sale9 = new Sale(null,productResponse2, 100l, Date.from(Instant.now()));
+		Sale sale10 = new Sale(null,productResponse2, 10l, Date.from(Instant.now()));
+		Product productResponse3 = productService.addProduct(product3);
+		Sale sale11 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+		Sale sale12 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+		Sale sale13 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+		Sale sale14 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+		Sale sale15 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+		Sale sale16 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+		Sale sale17 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+		Sale sale18 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+		Sale sale19 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+		Sale sale20 = new Sale(null,productResponse3, 10l, Date.from(Instant.now()));
+
         
         saleService.addSale(sale1);
         saleService.addSale(sale2);
@@ -63,6 +70,16 @@ public class SalesappApplication implements CommandLineRunner{
         saleService.addSale(sale8);
         saleService.addSale(sale9);
         saleService.addSale(sale10);
+        saleService.addSale(sale11);
+        saleService.addSale(sale12);
+        saleService.addSale(sale13);
+        saleService.addSale(sale14);
+        saleService.addSale(sale15);
+        saleService.addSale(sale16);
+        saleService.addSale(sale17);
+        saleService.addSale(sale18);
+        saleService.addSale(sale19);
+        saleService.addSale(sale20);
 	}
 
 }
