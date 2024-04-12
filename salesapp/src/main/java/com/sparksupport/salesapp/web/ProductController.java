@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sparksupport.salesapp.domain.Product;
+import com.sparksupport.salesapp.exception.BadRequestAlertException;
 import com.sparksupport.salesapp.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,14 +49,18 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
-        productService.addProduct(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Product added successfully");
+
+        if(product.getId() != null){
+            throw new BadRequestAlertException("A new appUser cannot already have an ID");
+        }
+       product = productService.addProduct(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        productService.updateProduct(id, product);
-        return ResponseEntity.ok("Product updated successfully");
+        product = productService.updateProduct(id, product);
+        return ResponseEntity.ok("Product updated successfully " + product);
     }
 
     @DeleteMapping("/{id}")

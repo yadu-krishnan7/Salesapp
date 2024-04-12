@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class Sale {
    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
@@ -29,7 +29,8 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(Product product, Long quantity, Date saleDate) {
+    public Sale(Long id,Product product, Long quantity, Date saleDate) {
+        this.id = id;
         this.product = product;
         this.quantity = quantity;
         this.saleDate = saleDate;

@@ -1,13 +1,13 @@
 package com.sparksupport.salesapp.repository;
 
-import java.util.List;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import com.sparksupport.salesapp.domain.Product;
 
-public interface ProductRepository extends PagingAndSortingRepository<Product,Long>{
+@Repository
+public interface ProductRepository extends PagingAndSortingRepository<Product,Long>,CrudRepository<Product,Long>{
 
-     List<Product> findAll(Pageable pageable);
 } 

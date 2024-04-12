@@ -46,9 +46,7 @@ Prerequisites
 
 * Build and Run
 
-- Build the project using Maven: mvn clean install
-
-- java -jar target/salesapp-0.0.1-SNAPSHOT
+- Build and run the project using Maven: mvn spring-boot:run
 
 - The application will start running on localhost:8080.
 

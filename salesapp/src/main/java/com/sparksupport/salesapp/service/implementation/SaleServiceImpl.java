@@ -5,10 +5,18 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sparksupport.salesapp.domain.Sale;
+import com.sparksupport.salesapp.repository.SaleRepository;
 import com.sparksupport.salesapp.service.SaleService;
 
 @Service
 public class SaleServiceImpl implements SaleService{
+
+
+    private final SaleRepository saleRepository;
+
+    public SaleServiceImpl(SaleRepository saleRepository){
+        this.saleRepository = saleRepository;
+    }
 
     @Override
     public List<Sale> getAllSales() {
@@ -23,13 +31,14 @@ public class SaleServiceImpl implements SaleService{
     }
 
     @Override
-    public void addSale(Sale sale) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addSale'");
+    public Sale addSale(Sale sale) {
+        sale = saleRepository.save(sale);
+
+        return sale;
     }
 
     @Override
-    public void updateSale(Long id, Sale updatedSale) {
+    public Sale updateSale(Long id, Sale updatedSale) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateSale'");
     }

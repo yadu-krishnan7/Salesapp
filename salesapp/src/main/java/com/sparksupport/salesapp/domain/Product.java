@@ -3,6 +3,7 @@ package com.sparksupport.salesapp.domain;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,12 +16,16 @@ import jakarta.persistence.Table;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
-
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
+    @Column(name = "price")
     private double price;
+    @Column(name = "quantity")
     private Long quantity;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
@@ -30,7 +35,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String description, double price, Long quantity) {
+    public Product(Long id,String name, String description, double price, Long quantity) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;

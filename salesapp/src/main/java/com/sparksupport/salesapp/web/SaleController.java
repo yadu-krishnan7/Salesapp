@@ -44,16 +44,16 @@ public class SaleController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addSale(@RequestBody Sale sale) {
-        saleService.addSale(sale);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Sale> addSale(@RequestBody Sale sale) {
+        sale = saleService.addSale(sale);
+        return ResponseEntity.status(HttpStatus.CREATED).body(sale);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateSale(@PathVariable Long id, @RequestBody Sale updatedSale) {
+    public ResponseEntity<Sale> updateSale(@PathVariable Long id, @RequestBody Sale updatedSale) {
         Sale existingSale = saleService.getSaleById(id);
         if (existingSale != null) {
-            saleService.updateSale(id, updatedSale);
+             saleService.updateSale(id, updatedSale);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

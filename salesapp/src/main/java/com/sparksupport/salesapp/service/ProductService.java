@@ -10,9 +10,9 @@ public interface ProductService {
 
     public Product getProductById(Long id) ;
 
-    public void addProduct(Product product) ;
+    public Product addProduct(Product product) ;
 
-    public void updateProduct(Long id, Product updatedProduct) ;
+    public Product updateProduct(Long id, Product updatedProduct) ;
 
     public void deleteProduct(Long id) ;
     public double getRevenueByProduct(Long productId);

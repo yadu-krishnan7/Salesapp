@@ -11,9 +11,9 @@ public interface SaleService {
 
     public Sale getSaleById(Long id) ;
 
-    public void addSale(Sale sale) ;
+    public Sale addSale(Sale sale) ;
 
-    public void updateSale(Long id, Sale updatedSale) ;
+    public Sale updateSale(Long id, Sale updatedSale) ;
 
     public void deleteSale(Long id) ;
     
