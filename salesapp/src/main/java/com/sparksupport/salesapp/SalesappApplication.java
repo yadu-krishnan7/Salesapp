@@ -34,7 +34,22 @@ public class SalesappApplication implements CommandLineRunner{
 		Product product1 = new Product(null,"Shoe","Best Shoes",500.0,100000l);
         Product product2 = new Product(null,"Shocks","Best Shocks",50.0,100000l);
         Product product3 = new Product(null,"chappal","Best chappal",150.0,60000l);
-        
+        Product product4 = new Product(null,"bottle","Best bottle",100.0,60000l);
+        Product product5 = new Product(null,"cover","Best cover",1500.0,60000l);
+        Product product6 = new Product(null,"soap","Best soap",1500.0,60000l);
+        Product product7 = new Product(null,"charger","Best charger",100.0,60000l);
+        Product product8 = new Product(null,"books","Best books",150.0,60000l);
+        Product product9 = new Product(null,"bags","Best bags",1500.0,60000l);
+        Product product10 = new Product(null,"chairs","Best chair",1000.0,60000l);
+        Product product11 = new Product(null,"steel bar","Best bar",80.0,60000l);
+         productService.addProduct(product11);        
+         productService.addProduct(product10);        
+         productService.addProduct(product9);        
+         productService.addProduct(product8);        
+         productService.addProduct(product7);        
+         productService.addProduct(product6);        
+         productService.addProduct(product5);        
+         productService.addProduct(product4);        
 		Product productResponse = productService.addProduct(product1);
 		Sale sale1 = new Sale(null,productResponse, 5l, Date.from(Instant.now()));
 		Sale sale2 = new Sale(null,productResponse, 65l, Date.from(Instant.now()));

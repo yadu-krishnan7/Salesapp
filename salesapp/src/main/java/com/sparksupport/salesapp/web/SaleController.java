@@ -28,46 +28,45 @@ public class SaleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Sale>> getAllSales() {
+    public ResponseEntity<?> getAllSales() {
         List<Sale> sales = saleService.getAllSales();
         return new ResponseEntity<>(sales, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Sale> getSaleById(@PathVariable Long id) {
+    public ResponseEntity<?> getSaleById(@PathVariable Long id) {
+        try{
         Sale sale = saleService.getSaleById(id);
-        if (sale != null) {
+       
             return new ResponseEntity<>(sale, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sale not found with this sale id");
         }
     }
 
     @PostMapping
-    public ResponseEntity<Sale> addSale(@RequestBody Sale sale) {
+    public ResponseEntity<?> addSale(@RequestBody Sale sale) {
         sale = saleService.addSale(sale);
         return ResponseEntity.status(HttpStatus.CREATED).body(sale);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sale> updateSale(@PathVariable Long id, @RequestBody Sale updatedSale) {
-        Sale existingSale = saleService.getSaleById(id);
-        if (existingSale != null) {
+    public ResponseEntity<?> updateSale(@PathVariable Long id, @RequestBody Sale updatedSale) {
+       try {
             Sale sale = saleService.updateSale(id, updatedSale);
             return new ResponseEntity<>(sale,HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sale not found for updation");
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSale(@PathVariable Long id) {
-        Sale existingSale = saleService.getSaleById(id);
-        if (existingSale != null) {
+    public ResponseEntity<?> deleteSale(@PathVariable Long id) {
+       try {
             saleService.deleteSale(id);
             return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sale not found for deletion");
         }
     }
 }

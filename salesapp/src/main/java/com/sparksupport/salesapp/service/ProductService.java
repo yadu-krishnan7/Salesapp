@@ -2,11 +2,13 @@ package com.sparksupport.salesapp.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.sparksupport.salesapp.domain.Product;
 
 public interface ProductService {
 
-    public List<Product> getAllProducts() ;
+    public List<Product> getAllProducts(Pageable pageable) ;
 
     public Product getProductById(Long id) throws Exception;
 

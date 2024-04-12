@@ -1,10 +1,10 @@
 package com.sparksupport.salesapp.service.implementation;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,15 +30,14 @@ public class ProductServiceImpl implements ProductService{
     }
     @Override
     @Transactional(readOnly = true)
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts(Pageable pageable) {
 
         log.info("Entered product service to fetch all the products");
         
-         Iterable<Product> iterableProducts = productRepository.findAll(Sort.by("name"));
+         Page<Product> productPage = productRepository.findAll(pageable);
 
-         List<Product> productList = new ArrayList<>();
+         List<Product> productList = productPage.getContent();
 
-         iterableProducts.forEach(productList::add);
 
          return productList;
     }

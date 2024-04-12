@@ -9,14 +9,14 @@ public interface SaleService {
 
     public List<Sale> getAllSales() ;
 
-    public Sale getSaleById(Long id) ;
+    public Sale getSaleById(Long id) throws Exception;
 
     public Sale addSale(Sale sale) ;
 
-    public Sale updateSale(Long id, Sale updatedSale) ;
+    public Sale updateSale(Long id, Sale updatedSale) throws Exception;
 
-    public void deleteSale(Long id) ;
+    public void deleteSale(Long id) throws Exception;
 
-    public List<Sale> getProductById(Long productId);
+    public List<Sale> getProductById(Long productId) throws Exception;
     
 } 
