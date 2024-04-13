@@ -109,19 +109,18 @@ public class ProductServiceImpl implements ProductService{
     @Override
     @Transactional(readOnly = true)
     public double getRevenueByProduct(Long productId) throws Exception{
-        log.info("Enter product service getRevenueByProduct with product id : {}",productId);
-         List<Sale> sales = saleService.getProductById(productId);
+        log.info("Getting revenue for product with id: {}", productId);         
+        List<Sale> sales = saleService.getProductById(productId);
 
          if(sales.isEmpty()){
-           
+            log.warn("Error fetching revenue for product id : {}", productId);
             throw new Exception("Sales not found with this product id :"+productId);
  
          }else{
-            log.info("Got sales list : {}", sales);
             double totalRevenue = sales.stream()
             .mapToDouble(sale -> sale.getQuantity() * sale.getProduct().getPrice())
             .sum();
-
+            log.info("Total revenue for product id {}: {}", productId, totalRevenue);
             return totalRevenue;
          }
     }
@@ -129,12 +128,13 @@ public class ProductServiceImpl implements ProductService{
     @Override
     @Transactional(readOnly = true)
     public double getTotalRevenue() {
-       
+        log.info("Getting total revenue");
         List<Sale> sales = saleService.getAllSales();
 
         double totalRevenue = sales.stream()
                               .mapToDouble(sale -> sale.getQuantity() * sale.getProduct().getPrice())
                               .sum();
+        log.info("Total revenue: {}", totalRevenue);
 
             return totalRevenue;
                                                 
