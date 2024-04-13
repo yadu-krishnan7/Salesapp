@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +53,7 @@ public class SaleController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')") 
     public ResponseEntity<?> addSale(@RequestBody Sale sale) {
         log.info("Request received to add a new sale");
         if(sale.getId() != null){
@@ -65,6 +67,7 @@ public class SaleController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')") 
     public ResponseEntity<?> updateSale(@PathVariable Long id, @RequestBody Sale updatedSale) {
         log.info("Request received to update sale with id: {}", id);
        try {
@@ -78,6 +81,7 @@ public class SaleController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')") 
     public ResponseEntity<?> deleteSale(@PathVariable Long id) {
         log.info("Request received to delete sale with id: {}", id);
        try {

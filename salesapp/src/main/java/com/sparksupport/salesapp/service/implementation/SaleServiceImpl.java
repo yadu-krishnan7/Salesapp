@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sparksupport.salesapp.domain.Sale;
 import com.sparksupport.salesapp.repository.SaleRepository;
@@ -25,12 +26,14 @@ public class SaleServiceImpl implements SaleService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Sale> getAllSales() {
         log.info("Fetching all sales");
         return saleRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Sale getSaleById(Long id) throws Exception{
         log.info("Fetching sale by id: {}", id);
         Optional<Sale> saleOptional = saleRepository.findById(id);
@@ -85,6 +88,7 @@ public class SaleServiceImpl implements SaleService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Sale> getProductById(Long productId) throws Exception{
         log.info("Fetching sales by product id: {}", productId);
         Optional<List<Sale>> saleListOptional = saleRepository.findByProductId(productId);

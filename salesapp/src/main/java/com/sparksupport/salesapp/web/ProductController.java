@@ -45,7 +45,6 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER')") 
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         log.info("Request received to fetch product with id: {}", id);        
         try{
@@ -58,6 +57,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')") 
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         log.info("Request received to add a new product: {}", product);        
         if(product.getId() != null){
@@ -70,6 +70,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')") 
     public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody Product product) {
 
         log.info("Request received to update product with id: {}", id);
@@ -85,6 +86,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')") 
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         log.info("Request received to delete product with id: {}", id);
       try{
