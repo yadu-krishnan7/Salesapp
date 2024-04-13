@@ -47,7 +47,7 @@ public class SaleController {
             return new ResponseEntity<>(sale, HttpStatus.OK);
         } catch(Exception e) {
             log.error("Error occurred while fetching sale with id: {}", id, e);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sale not found with this sale id");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sale not found with this sale id : "+id);
         }
     }
 
@@ -70,7 +70,7 @@ public class SaleController {
        try {
             Sale sale = saleService.updateSale(id, updatedSale);
             log.info("Sale updated successfully with id: {}", id);
-            return new ResponseEntity<>(sale,HttpStatus.OK);
+            return ResponseEntity.ok("Sale updated Successfully "+sale);
         } catch(Exception e) {
             log.error("Error occurred while updating sale with id: {}", id, e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sale not found for updation");
@@ -83,7 +83,7 @@ public class SaleController {
        try {
             saleService.deleteSale(id);
             log.info("Sale deleted successfully with id: {}", id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok("Sale deleted");
         } catch(Exception e) {
             log.error("Error occurred while deleting sale with id: {}", id, e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sale not found for deletion");

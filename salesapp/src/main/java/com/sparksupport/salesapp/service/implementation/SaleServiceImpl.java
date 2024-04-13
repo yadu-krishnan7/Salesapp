@@ -1,5 +1,7 @@
 package com.sparksupport.salesapp.service.implementation;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +46,7 @@ public class SaleServiceImpl implements SaleService{
     @Override
     public Sale addSale(Sale sale) {
         log.info("Adding new sale");
+        sale.setSaleDate(Date.from(Instant.now()));
         sale = saleRepository.save(sale);
 
         return sale;
@@ -59,7 +62,7 @@ public class SaleServiceImpl implements SaleService{
 
             existingSale.setProduct(updatedSale.getProduct() != null ? updatedSale.getProduct() : existingSale.getProduct());
             existingSale.setQuantity(updatedSale.getQuantity() != null ? updatedSale.getQuantity() : existingSale.getQuantity());
-            existingSale.setSaleDate(updatedSale.getSaleDate() != null ? updatedSale.getSaleDate() : existingSale.getSaleDate());
+            existingSale.setSaleDate(updatedSale.getSaleDate() != null ? updatedSale.getSaleDate() : Date.from(Instant.now()));
 
             return saleRepository.save(existingSale);
          }else{

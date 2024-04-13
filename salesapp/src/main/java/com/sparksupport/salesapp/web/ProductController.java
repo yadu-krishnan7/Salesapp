@@ -61,9 +61,11 @@ public class ProductController {
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         log.info("Request received to add a new product: {}", product);        
         if(product.getId() != null){
+            log.warn("New product request contains an Id, ignoring the provided Id");
             throw new BadRequestAlertException("A new product cannot already have an ID");
         }
        product = productService.addProduct(product);
+       log.info("New product added successfully with Id: {}", product.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
@@ -73,6 +75,7 @@ public class ProductController {
         log.info("Request received to update product with id: {}", id);
        try{
         product = productService.updateProduct(id, product);
+        log.info("Product updated successfully with id: {}", id);
         return ResponseEntity.ok("Product updated successfully " + product);
         }catch(Exception e){
 
@@ -86,6 +89,7 @@ public class ProductController {
         log.info("Request received to delete product with id: {}", id);
       try{
         productService.deleteProduct(id);
+        log.info("Product deleted successfully with id: {}", id);
         return ResponseEntity.ok("Product deleted successfully");
       }catch(Exception e){
         log.error("Error deleting product with id: {}", id, e);
@@ -95,7 +99,7 @@ public class ProductController {
     }
 
     @GetMapping("/revenue")
-    public ResponseEntity<Double> getTotalRevenue() {
+    public ResponseEntity<?> getTotalRevenue() {
         log.info("Request received to fetch total revenue of all products"); 
         double totalRevenue = productService.getTotalRevenue();
         return ResponseEntity.ok(totalRevenue);
